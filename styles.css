@@ -69,6 +69,8 @@ html {
     width: 100%;
     transform: scaleY(0);
     transform-origin: bottom;
+    transition: 0.5s ease;
+
 }
 
 .floor {

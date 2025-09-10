@@ -24,7 +24,7 @@ const updateHandlePosition = (handle, dragY) => {
   handle.style.transform = `translateY(${dragY}px)`;
 };
 
-const getPercentsForSoundBar = (nextY) => nextY / MAX_HANDLE_CHANGE / 100;
+const getPercentsForSoundBar = (nextY) => nextY / MAX_HANDLE_CHANGE / 80;
 
 const updateSoundBarScaleByPressDown = (nextY) => {
   if (prevHandleY < nextY) {
@@ -47,8 +47,6 @@ const updateSoundBar = (nextY) => {
 };
 
 const onHandleDragHandler = (e) => {
-  console.log(isDragging, e);
-
   if (isDragging) {
     const nextY = e.clientY - startHandleY;
     if (e.clientY !== 0 && isAvailableForDrug(nextY)) {
@@ -79,7 +77,7 @@ const blowDownSoundBar = () => {
       changeSoundBarScale();
       updatePlayerVolume();
     }
-  }, 500);
+  }, 250);
 };
 
 const onMouseDown = (e) => {
