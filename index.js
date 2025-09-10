@@ -94,9 +94,10 @@ const initDragController = () => {
   window.addEventListener("mousemove", onHandleDragHandler);
   window.addEventListener("mouseup", () => (isDragging = false));
   document.body.addEventListener(
-    "click",
+    "mousedown",
     () => {
       player.muted = false;
+      player.volume = soundScale;
       player.play();
     },
     { once: true }
