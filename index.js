@@ -47,6 +47,7 @@ const updateSoundBar = (nextY) => {
 };
 
 const onHandleDragHandler = (e) => {
+  e.preventDefault();
   if (isDragging) {
     const nextY = e.clientY - startHandleY;
     if (e.clientY !== 0 && isAvailableForDrug(nextY)) {
@@ -81,6 +82,7 @@ const blowDownSoundBar = () => {
 };
 
 const onMouseDown = (e) => {
+  e.preventDefault();
   isDragging = true;
   if (!startHandleY) {
     startHandleY = e.clientY;
@@ -99,6 +101,20 @@ const initDragController = () => {
       player.play();
     },
     { once: true }
+  );
+  handle.addEventListener("touchstart", onMouseDown, { passive: true });
+  window.addEventListener("touchmove", onHandleDragHandler, { passive: true });
+  window.addEventListener("touchend", () => (isDragging = false), {
+    passive: true,
+  });
+  document.body.addEventListener(
+    "touchstart",
+    () => {
+      player.muted = false;
+      player.volume = soundScale;
+      player.play();
+    },
+    { once: true, passive: true }
   );
 };
 
