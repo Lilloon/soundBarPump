@@ -9,6 +9,14 @@ const handle = document.getElementById("handle");
 const soundBar = document.getElementById("soundBar");
 const soundCount = document.getElementById("soundCount");
 const player = document.getElementById("player");
+const lockScreen = document.getElementById("lockscreen");
+const startButton = document.getElementById("startbutton");
+
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const track = audioContext.createMediaElementSource(player);
+
+const gainNode = audioContext.createGain();
+track.connect(gainNode).connect(audioContext.destination);
 
 const MAX_HANDLE_CHANGE = handle.clientHeight - 10;
 
@@ -59,14 +67,9 @@ const onHandleDragHandler = (e) => {
   }
 };
 
-const onDrugStartHandler = (e) => {
-  if (!startHandleY) {
-    startHandleY = e.clientY;
-  }
-};
-
 updatePlayerVolume = () => {
   player.volume = soundScale;
+  gainNode.gain.value = soundScale / 2;
 };
 
 const blowDownSoundBar = () => {
@@ -83,6 +86,7 @@ const blowDownSoundBar = () => {
 
 const onMouseDown = (e) => {
   e.preventDefault();
+  handle.setPointerCapture(e.pointerId);
   isDragging = true;
   if (!startHandleY) {
     startHandleY = e.clientY;
@@ -90,31 +94,19 @@ const onMouseDown = (e) => {
 };
 
 const initDragController = () => {
-  handle.addEventListener("mousedown", onMouseDown);
-  window.addEventListener("mousemove", onHandleDragHandler);
-  window.addEventListener("mouseup", () => (isDragging = false));
-  document.body.addEventListener(
-    "mousedown",
-    () => {
+  handle.addEventListener("pointerdown", onMouseDown);
+  window.addEventListener("pointermove", onHandleDragHandler);
+  window.addEventListener("pointerup", () => (isDragging = false));
+  startButton.addEventListener(
+    "click",
+    async () => {
       player.muted = false;
-      player.volume = soundScale;
-      player.play();
+      await audioContext.resume();
+      await player.play();
+      gainNode.gain.value = 0;
+      document.body.removeChild(lockScreen);
     },
     { once: true }
-  );
-  handle.addEventListener("touchstart", onMouseDown, { passive: true });
-  window.addEventListener("touchmove", onHandleDragHandler, { passive: true });
-  window.addEventListener("touchend", () => (isDragging = false), {
-    passive: true,
-  });
-  document.body.addEventListener(
-    "touchstart",
-    () => {
-      player.muted = false;
-      player.volume = soundScale;
-      player.play();
-    },
-    { once: true, passive: true }
   );
 };
 

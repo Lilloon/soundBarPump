@@ -15,17 +15,46 @@ body {
     height: 100%;
 }
 
+#volume {
+    display: none;
+}
+
+#lockscreen {
+    position: fixed;
+    background-color: rgba(25, 28, 36, 0.9);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#startbutton {
+    font-size: 32px;
+    padding: 10px 20px;
+    border-radius: 20px;
+
+}
+
 html {
     height: 100%;
 }
 
 .pump {
     position: relative;
+    touch-action: none;   /* отключает жесты тачскрина */
+  -webkit-user-drag: none; /* чтобы нельзя было "таскать" как картинку */
+  -webkit-user-select: none; /* запрет выделения текста при свайпе */
 }
 
 .pump-handle {
     position: relative;
     cursor: pointer;
+
 }
 
 .pump-handle-upper {
