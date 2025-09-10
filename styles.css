@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(212, 204, 191);
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+.pump {
+    position: relative;
+}
+
+.pump-handle {
+    position: relative;
+    cursor: pointer;
+}
+
+.pump-handle-upper {
+    width: 70px;
+    height: 8px;
+    background-color: rgb(63, 63, 63);
+    border: 1px solid black;
+}
+
+.pump-handle-middle {
+    position: relative;
+    width: 8px;
+    height: 170px;
+    left: 50%;
+    background-color: rgb(107, 107, 107);
+    border: 1px solid rgb(68, 68, 68);
+    transform: translateX(-50%);
+}
+
+.pump-foundation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 40px;
+    height: 180px;
+    background-color: rgb(155, 155, 155);
+    border: 1px solid rgb(68, 68, 68);
+    padding: 4px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pump-foundation-sound {
+    background-color: rgb(89, 224, 89);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    transform: scaleY(0);
+    transform-origin: bottom;
+}
+
+.floor {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(99, 74, 57);
+    margin-top: -20px;
+}
